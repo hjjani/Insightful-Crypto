@@ -6,7 +6,13 @@
 //
 
 // CoinGecko API Info
+
 /*
+
+The CoinGecko API returns market data for cryptocurrencies like Bitcoin. 
+The response includes information such as the current price, market cap, 24h price change, circulating supply, and more.
+
+
  URL: https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=24h
  
  JSON Repsponse:
