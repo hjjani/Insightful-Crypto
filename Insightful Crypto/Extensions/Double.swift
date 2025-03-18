@@ -4,6 +4,7 @@
 //
 //  Created by Hitanshu Jani on 2/8/25.
 //
+// Extending Double for price formatting across the app.
 
 import Foundation
 
