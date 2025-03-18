@@ -4,23 +4,25 @@
 //
 //  Created by Hitanshu Jani on 3/16/25.
 //
+//  Combines CoinImageView with coin name and symbol display.
+//  Used to show compact logo info for each coin.
 
 import SwiftUI
 
 struct CoinLogoView: View {
     
-    let coin: CoinModel
+    let coin: CoinModel // Coin passed in for display
     
     var body: some View {
         VStack {
-            CoinImageView(coin: coin)
+            CoinImageView(coin: coin) // Coin image from URL
                 .frame(width: 50, height: 50)
-            Text(coin.symbol.uppercased())
+            Text(coin.symbol.uppercased()) // Coin ticker symbol
                 .font(.headline)
                 .foregroundColor(Color.theme.accent)
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
-            Text(coin.name)
+            Text(coin.name) // Full coin name
                 .font(.caption)
                 .foregroundColor(Color.theme.secondaryText)
                 .lineLimit(2)
