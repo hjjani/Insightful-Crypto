@@ -4,6 +4,8 @@
 //
 //  Created by Hitanshu Jani on 2/24/25.
 //
+// A data model that represents a statistical metric in the app.
+// It includes the title of the metric, its value, and an optional percentage change.
 
 import Foundation
 
