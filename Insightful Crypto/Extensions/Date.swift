@@ -4,6 +4,7 @@
 //
 //  Created by Hitanshu Jani on 3/17/25.
 //
+// Extending date to be used in coin graphs.
 
 import Foundation
 
