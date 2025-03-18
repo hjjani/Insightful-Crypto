@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SearchBarView: View {
     
-    @Binding var searchText: String
+    @Binding var searchText: String // Two-way binding for user input
     
     var body: some View {
         HStack {
@@ -26,13 +26,14 @@ struct SearchBarView: View {
                 .keyboardType(.asciiCapable)
                 .autocorrectionDisabled(true)
                 .overlay(
+                    // Clear text button only appear when user has typed something
                     Image(systemName: "xmark.circle.fill")
                         .padding()
                         .offset(x: 10)
                         .foregroundColor(Color.theme.accent)
                         .opacity(searchText.isEmpty ? 0.0 : 1.0)
                         .onTapGesture {
-                            UIApplication.shared.endEditing()
+                            UIApplication.shared.endEditing() // dismiss keyboard
                             searchText = ""
                         }
                     
@@ -45,6 +46,7 @@ struct SearchBarView: View {
         .font(.headline)
         .padding()
         .background(
+            // Rounded background with subtle shadow
             RoundedRectangle(cornerRadius: 25)
                 .fill(Color.theme.background)
                 .shadow(color: Color.theme.accent.opacity(0.15),
