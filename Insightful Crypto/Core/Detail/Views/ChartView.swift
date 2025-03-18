@@ -4,6 +4,8 @@
 //
 //  Created by Hitanshu Jani on 3/17/25.
 //
+// Creates the Graph used to display market trends for each cryptocurrency.
+// Creates a custom graph and animates the trendline when displayed.
 
 import SwiftUI
 
@@ -15,16 +17,18 @@ struct ChartView: View {
     private let lineColor: Color
     private let startingDate: Date
     private let endingDate: Date
-    @State private var percentage: CGFloat = 0
+    @State private var percentage: CGFloat = 0 // Animation progress state
     
     init(coin: CoinModel) {
         data = coin.sparklineIn7D?.price ?? []
         maxY = data.max() ?? 0
         minY = data.min() ?? 0
-        
+
+        // Determine color based on price movement (green for increase, red for decrease)
         let priceChange = (data.last ?? 0) - (data.first ?? 0)
         lineColor = priceChange > 0 ? Color.theme.green : Color.theme.red
-        
+
+        // Calculate date range for the chart
         endingDate = Date(coinGeckoString: coin.lastUpdated ?? "")
         startingDate = endingDate.addingTimeInterval(-7 * 24 * 60 * 60)
     }
@@ -42,6 +46,7 @@ struct ChartView: View {
         .font(.caption)
         .foregroundColor(Color.theme.secondaryText)
         .onAppear {
+            // Animate the chart line over 2 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 withAnimation(.linear(duration: 2.0)) {
                     percentage = 1.0
@@ -57,6 +62,7 @@ struct ChartView_Preview: PreviewProvider {
     }
 }
 
+// MARK: - Chart Components
 extension ChartView {
     
     private var chartView: some View {
@@ -84,7 +90,8 @@ extension ChartView {
             .shadow(color: lineColor.opacity(0.1), radius: 10, x: 0.0, y: 40)
         }
     }
-    
+
+    // Background grid dividers
     private var chartBackground: some View {
         VStack {
             Divider()
@@ -94,7 +101,8 @@ extension ChartView {
             Divider()
         }
     }
-    
+
+    // Y-axis labels (min, max, midpoint)
     private var chartYAxis: some View {
         VStack {
             Text(maxY.formattedWithAbbreviations())
@@ -104,7 +112,8 @@ extension ChartView {
             Text(minY.formattedWithAbbreviations())
         }
     }
-    
+
+    // Date labels (start and end)
     private var chartDateLabels: some View {
         HStack {
             Text(startingDate.asShortDateString())
