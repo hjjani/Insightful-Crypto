@@ -4,6 +4,10 @@
 //
 //  Created by Hitanshu Jani on 2/3/25.
 //
+// Displays main screen of the app.
+// Shows live prices, implements the sorting and searching features.
+// Contains buttons to go to Portfolio and Settings sections of the app.
+// Clicking on a cryptocurrency will open up its specific page with the corresponding data.
 
 import SwiftUI
 
@@ -71,6 +75,7 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 extension HomeView {
+    // Header with portfolio toggle and settings button
     private var homeHeader: some View {
         HStack {
             CircleButtonView(iconName: showPortfolio ? "plus" : "info")
@@ -102,7 +107,8 @@ extension HomeView {
         }
         .padding(.horizontal)
     }
-    
+
+    // List of all coins when not viewing the portfolio
     private var allCoinsList: some View {
         List {
             ForEach(vm.allCoins) { coin in
@@ -116,7 +122,8 @@ extension HomeView {
         }
         .listStyle(PlainListStyle())
     }
-    
+
+    // List of portfolio coins when viewing the portfolio
     private var portfolioCoinsList: some View {
         List {
             ForEach(vm.portfolioCoins) { coin in
@@ -130,7 +137,8 @@ extension HomeView {
         }
         .listStyle(PlainListStyle())
     }
-    
+
+    // Text displayed when portfolio is empty
     private var portfolioEmptyText: some View {
         Text("You haven't added any coins to your portfolio yet. Click the + button to get started! 🧐")
             .font(.callout)
@@ -140,12 +148,14 @@ extension HomeView {
             .padding(50)
 
     }
-    
+
+    // Function to navigate to the coin's detail view
     private func segue(coin: CoinModel) {
         selectedCoin = coin
         showDetailView.toggle()
     }
-    
+
+    // Column titles for sorting and reloading
     private var columnTitles: some View {
         HStack {
             HStack(spacing: 4) {
