@@ -4,12 +4,15 @@
 //
 //  Created by Hitanshu Jani on 2/24/25.
 //
+// Displays key market or portfolio statistics using SwiftUI views.
+// Takes a StatisticModel (title, value, percentage change) and visualizes it.
+// Uses system icons and dynamic coloring based on value trends.
 
 import SwiftUI
 
 struct StatisticView: View {
     
-    let stat: StatisticModel
+    let stat: StatisticModel // Pass in the StatisticModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -22,6 +25,7 @@ struct StatisticView: View {
             HStack(spacing: 4) {
                 Image(systemName: "triangle.fill")
                     .font(.caption2)
+                // Arrow rotation based on % change direction
                     .rotationEffect(
                         Angle(degrees:(stat.percentageChange ?? 0) >= 0 ? 0 : 180))
                 
