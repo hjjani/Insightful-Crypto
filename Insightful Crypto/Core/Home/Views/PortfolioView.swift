@@ -4,6 +4,7 @@
 //
 //  Created by Hitanshu Jani on 3/16/25.
 //
+// Here, users can update and edit their portfolio by adding/removing coins, updating holdings, etc.
 
 import SwiftUI
 
@@ -58,7 +59,7 @@ struct PortfolioView_Previews: PreviewProvider {
 }
 
 extension PortfolioView {
-    
+    // List of coin logos to choose from for the portfolio
     private var coinLogoList: some View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             LazyHStack(spacing: 10) {
@@ -81,7 +82,8 @@ extension PortfolioView {
             .padding(.leading)
         })
     }
-    
+
+    // Updates selected coin and sets the quantity text
     private func updateSelectedCoin(coin: CoinModel) {
         selectedCoin = coin
         
@@ -93,14 +95,16 @@ extension PortfolioView {
             quantityText = ""
         }
     }
-    
+
+    // Calculates current value based on quantity and coin price
     private func getCurrentValue() -> Double {
         if let quantity = Double(quantityText) {
             return quantity * (selectedCoin?.currentPrice ?? 0)
         }
         return 0
     }
-    
+
+    // Portfolio input section to update holdings and value
     private var portfolioInputSection: some View {
         VStack(spacing: 20) {
             HStack {
