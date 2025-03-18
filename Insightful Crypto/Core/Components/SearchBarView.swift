@@ -4,6 +4,9 @@
 //
 //  Created by Hitanshu Jani on 2/23/25.
 //
+// Custom SwiftUI search bar that binds to a searchText string.
+// Features search icon, dynamic accent color, and clear (X) button.
+// Integrates with SwiftUI keyboard and text handling.
 
 import SwiftUI
 
