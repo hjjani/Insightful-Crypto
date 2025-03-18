@@ -4,6 +4,7 @@
 //
 //  Created by Hitanshu Jani on 3/18/25.
 //
+// Extends the duration of the launch screen and animates it.
 
 import SwiftUI
 
