@@ -9,7 +9,11 @@ import Foundation
 
 // JSON Data
 /*
- 
+
+The data fetched from CoinGecko API contains detailed information about a specific cryptocurrency (e.g., Bitcoin).
+It includes key properties such as its name, symbol, description, hashing algorithm, platforms, and more.
+Below is an example of a response for Bitcoin that includes URLs for the coin's homepage, whitepaper, blockchain explorer, and more.
+
  URL:
  'https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false'
  
