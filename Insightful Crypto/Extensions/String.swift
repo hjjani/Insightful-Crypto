@@ -4,6 +4,7 @@
 //
 //  Created by Hitanshu Jani on 3/17/25.
 //
+// Formats text for coin descriptions on a coin page by removing HTML occurrences.
 
 import Foundation
 
