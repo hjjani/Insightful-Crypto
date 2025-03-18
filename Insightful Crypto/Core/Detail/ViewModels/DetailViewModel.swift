@@ -4,31 +4,37 @@
 //
 //  Created by Hitanshu Jani on 3/17/25.
 //
+//  ViewModel for the Coin Detail screen.
+// All data retrieved from CoinGecko API.
+//  Follows MVVM architecture and uses Combine to bind coin data and additional metadata (description, links, statistics).
 
 import Foundation
 import Combine
 
 class DetailViewModel: ObservableObject {
+
+    // MARK: - Published properties to bind with UI
+    @Published var overviewStatistics: [StatisticModel] = []    // Summary stats (price, market cap, rank, volume)
+    @Published var additionalStatistics: [StatisticModel] = []  // Extra info (24h high/low, block time, hashing algo)
+    @Published var coinDescription: String? = nil               // Coin's description from CoinGecko API
+    @Published var websiteURL: String? = nil                    // Official homepage URL
+    @Published var redditURL: String? = nil                     // Coin's subreddit URL
     
-    @Published var overviewStatistics: [StatisticModel] = []
-    @Published var additionalStatistics: [StatisticModel] = []
-    @Published var coinDescription: String? = nil
-    @Published var websiteURL: String? = nil
-    @Published var redditURL: String? = nil
+    @Published var coin: CoinModel                              // Main coin model passed into detail view
     
-    @Published var coin: CoinModel
-    
-    private let coinDetailService: CoinDetailDataService
-    private var cancellables = Set<AnyCancellable>()
+    private let coinDetailService: CoinDetailDataService        // Fetches extra coin data from CoinGecko API
+    private var cancellables = Set<AnyCancellable>()            // Holds Combine subscriptions
     
     init(coin: CoinModel) {
         self.coin = coin
         self.coinDetailService = CoinDetailDataService(coin: coin)
         self.addSubscribers()
     }
-    
+
+    // MARK: - Subscribe to detail service and transform data
     private func addSubscribers() {
-        
+
+        // Combine CoinModel and CoinDetailModel to compute statistics arrays
         coinDetailService.$coinDetails
             .combineLatest($coin)
             .map(mapDataToStatistics)
@@ -37,7 +43,8 @@ class DetailViewModel: ObservableObject {
                 self?.additionalStatistics = returnedArrays.additional
             }
             .store(in: &cancellables)
-        
+
+        // Extract textual info and links from CoinDetailModel
         coinDetailService.$coinDetails
             .sink { [weak self] (returnedCoinDetails) in
                 self?.coinDescription = returnedCoinDetails?.readableDescription
@@ -47,13 +54,15 @@ class DetailViewModel: ObservableObject {
             .store(in: &cancellables)
         
     }
-    
+
+    // MARK: - Data transformation for UI display
     private func mapDataToStatistics(coinDetailModel: CoinDetailModel?, coinModel: CoinModel) -> (overview: [StatisticModel], additional: [StatisticModel]) {
         let overviewArray = createOverviewArray(coinModel: coinModel)
         let additionalArray = createAdditionalArray(coinModel: coinModel, coinDetailModel: coinDetailModel)
         return (overviewArray, additionalArray)
     }
-    
+
+    // MARK: - Overview section stats (price, market cap, etc.)
     private func createOverviewArray(coinModel: CoinModel) -> [StatisticModel] {
         // overview
         let price = coinModel.currentPrice.asCurrencyWith6Decimals()
@@ -76,7 +85,8 @@ class DetailViewModel: ObservableObject {
         
         return overviewArray
     }
-    
+
+    // MARK: - Additional section stats (technical info, 24h metrics)
     private func createAdditionalArray(coinModel: CoinModel, coinDetailModel: CoinDetailModel?) -> [StatisticModel] {
         // additional
         let high = coinModel.high24H?.asCurrencyWith6Decimals() ?? "n/a"
