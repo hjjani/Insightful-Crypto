@@ -4,13 +4,14 @@
 //
 //  Created by Hitanshu Jani on 2/8/25.
 //
+// Lays out the columns and their titles for the pages that display general coin/portfolio coin data.
 
 import SwiftUI
 
 struct CoinRowView: View {
     
-    let coin: CoinModel
-    let showHoldingsColumn: Bool
+    let coin: CoinModel           // Coin model representing the coin's data
+    let showHoldingsColumn: Bool  // Flag to toggle visibility of holdings column
     
     var body: some View {
         HStack(spacing: 0) {
@@ -29,6 +30,7 @@ struct CoinRowView: View {
     }
 }
 
+// Preview of CoinRowView for both light and dark modes
 struct CoinRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -43,6 +45,7 @@ struct CoinRowView_Previews: PreviewProvider {
 }
 
 extension CoinRowView {
+    // Left column displaying coin rank, image, and symbol
     private var leftColumn: some View {
         HStack(spacing: 0) {
             Text("\(coin.rank)")
@@ -57,7 +60,8 @@ extension CoinRowView {
                 .foregroundColor(Color.theme.accent)
         }
     }
-    
+
+    // Center column displaying holdings value and amount
     private var centerColumn: some View {
         VStack(alignment: .trailing) {
             Text(coin.currentHoldingsValue.asCurrencyWith2Decimals())
@@ -66,7 +70,8 @@ extension CoinRowView {
         }
         .foregroundColor(Color.theme.accent)
     }
-    
+
+    // Right column displaying current price and 24H price change
     private var rightColumn: some View {
         VStack(alignment: .trailing) {
             Text(coin.currentPrice.asCurrencyWith6Decimals())
