@@ -4,6 +4,7 @@
 //
 //  Created by Hitanshu Jani on 3/17/25.
 //
+// Displays Overview Information and Additional Information about a given cryptocurrency.
 
 import SwiftUI
 
@@ -25,6 +26,7 @@ struct DetailView: View {
     
     @StateObject private var vm: DetailViewModel
     @State private var showFullDescription: Bool = false
+    // Grid layout settings for statistics
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -38,6 +40,7 @@ struct DetailView: View {
     var body: some View {
         ScrollView {
             VStack {
+                // Display the chart for the selected coin
                 ChartView(coin: vm.coin)
                     .padding(.vertical)
                 
@@ -76,8 +79,10 @@ struct DetailView_Previews: PreviewProvider {
     }
 }
 
+// MARK: - UI Components
 extension DetailView {
-    
+
+    // Navigation bar items (coin symbol and image)
     private var navigationBarTrailingItems: some View {
         HStack {
             Text(vm.coin.symbol.uppercased())
@@ -87,7 +92,8 @@ extension DetailView {
                 .frame(width: 25, height: 25)
         }
     }
-    
+
+    // Title for the Overview section
     private var overviewTitle: some View {
         Text("Overview")
             .font(.title)
@@ -95,7 +101,8 @@ extension DetailView {
             .foregroundColor(Color.theme.accent)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
+    // Title for Additional Details section
     private var additionalTitle: some View {
         Text("Additional Details")
             .font(.title)
@@ -103,7 +110,8 @@ extension DetailView {
             .foregroundColor(Color.theme.accent)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
+    // Coin description with expand/collapse functionality
     private var descriptionSection: some View {
         ZStack {
             if let coinDescription = vm.coinDescription, !coinDescription.isEmpty {
@@ -129,7 +137,8 @@ extension DetailView {
             }
         }
     }
-    
+
+    // Grid displaying overview statistics
     private var overviewGrid: some View {
         LazyVGrid(
             columns: columns,
@@ -142,7 +151,8 @@ extension DetailView {
                 }
             })
     }
-    
+
+    // Grid displaying additional statistics
     private var additionalGrid: some View {
         LazyVGrid(
             columns: columns,
@@ -155,7 +165,8 @@ extension DetailView {
                 }
             })
     }
-    
+
+    // Links to external resources (Website & Reddit)
     private var websiteSection: some View {
         VStack(alignment: .leading, spacing: 20) {
             if let websiteString = vm.websiteURL,
