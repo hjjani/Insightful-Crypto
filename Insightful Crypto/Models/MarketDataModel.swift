@@ -7,6 +7,10 @@
 
 // CoinGecko Global API Info
 /*
+
+This API call provides global market data for cryptocurrencies, including the total market cap, the number of active cryptocurrencies, and other statistics.
+It returns data in various currencies (USD, BTC, ETH, etc.).
+
  URL: https://api.coingecko.com/api/v3/global
  
  
