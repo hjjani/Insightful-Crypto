@@ -4,6 +4,8 @@
 //
 //  Created by Hitanshu Jani on 3/18/25.
 //
+// Lays out the Settings page for the app.
+// Contains Overview, CoinGecko API, Developer, and Application Sections
 
 import SwiftUI
 
