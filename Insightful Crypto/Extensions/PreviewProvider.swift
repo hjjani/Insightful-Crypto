@@ -4,6 +4,8 @@
 //
 //  Created by Hitanshu Jani on 2/8/25.
 //
+// Provides a static reference for creating previews of SwiftUI views with mock data.
+// Contains example data from a CoinGecko API call.
 
 import Foundation
 import SwiftUI
